@@ -1,0 +1,218 @@
+Table perfil {
+  id integer [pk, increment]
+  nome varchar(50) [not null, unique]
+}
+
+Table usuario {
+  id integer [pk, increment]
+  nome varchar(150) [not null]
+  email varchar(150) [not null, unique]
+  senha varchar(255) [not null]
+  telefone varchar(20)
+  status boolean [not null, default: true]
+  data_criacao timestamp [not null]
+  ultimo_acesso timestamp
+  perfil_id integer [not null]
+}
+
+Ref: usuario.perfil_id > perfil.id
+
+Table cliente {
+  id integer [pk, increment]
+  nome varchar(150) [not null]
+  cpf varchar(11) [not null, unique]
+  email varchar(150)
+  telefone varchar(20)
+  data_nascimento date
+  limite_credito decimal(12,2) [default: 0]
+  observacoes text
+  status boolean [not null, default: true]
+  data_criacao timestamp [not null]
+}
+
+Table endereco {
+  id integer [pk, increment]
+  cliente_id integer [not null]
+  tipo varchar(30)
+  cep varchar(8) [not null]
+  logradouro varchar(150) [not null]
+  numero varchar(20) [not null]
+  complemento varchar(100)
+  bairro varchar(100) [not null]
+  cidade varchar(100) [not null]
+  estado varchar(2) [not null]
+}
+
+Ref: endereco.cliente_id > cliente.id
+
+Table categoria {
+  id integer [pk, increment]
+  nome varchar(100) [not null, unique]
+  descricao text
+  status boolean [not null, default: true]
+}
+
+Table produto {
+  id integer [pk, increment]
+  categoria_id integer [not null]
+  nome varchar(150) [not null]
+  codigo_interno varchar(50) [not null, unique]
+  codigo_barras varchar(50) [unique]
+  descricao text
+  unidade_medida varchar(10) [not null]
+  preco_custo decimal(12,2) [not null]
+  preco_venda decimal(12,2) [not null]
+  estoque_minimo decimal(12,3) [default: 0]
+  estoque_maximo decimal(12,3)
+  imagem varchar(255)
+  status boolean [not null, default: true]
+}
+
+Ref: produto.categoria_id > categoria.id
+
+Table servico {
+  id integer [pk, increment]
+  nome varchar(150) [not null]
+  codigo_interno varchar(50) [not null, unique]
+  descricao text
+  preco_custo decimal(12,2) [default: 0]
+  preco_venda decimal(12,2) [not null]
+  status boolean [not null, default: true]
+  data_criacao timestamp [not null]
+}
+
+Table estoque {
+  id integer [pk, increment]
+  produto_id integer [not null, unique]
+  quantidade decimal(12,3) [not null, default: 0]
+  atualizado_em timestamp [not null]
+}
+
+Table movimentacao_estoque {
+  id integer [pk, increment]
+  produto_id integer [not null]
+  tipo varchar(20) [not null]
+  quantidade decimal(12,3) [not null]
+  origem varchar(30) [not null]
+  origem_id integer
+  data_movimentacao timestamp [not null]
+  observacao text
+}
+
+Ref: estoque.produto_id - produto.id
+Ref: movimentacao_estoque.produto_id > produto.id
+
+Table fornecedor {
+  id integer [pk, increment]
+  tipo varchar(2) [not null]
+  documento varchar(14) [not null, unique]
+  razao_social varchar(150) [not null]
+  nome_fantasia varchar(150)
+  email varchar(150)
+  telefone varchar(20)
+  dados_bancarios text
+  observacoes text
+  status boolean [not null, default: true]
+  data_criacao timestamp [not null]
+}
+
+Table produto_fornecedor {
+  id integer [pk, increment]
+  produto_id integer [not null]
+  fornecedor_id integer [not null]
+  codigo_fornecedor varchar(50)
+  preco_custo decimal(12,2)
+  principal boolean [not null, default: false]
+  indexes {
+    (produto_id, fornecedor_id) [unique]
+  }
+}
+
+Ref: produto_fornecedor.produto_id > produto.id
+Ref: produto_fornecedor.fornecedor_id > fornecedor.id
+
+Table compra {
+  id integer [pk, increment]
+  fornecedor_id integer [not null]
+  data_compra timestamp [not null]
+  status varchar(20) [not null]
+  desconto decimal(12,2) [default: 0]
+  total decimal(12,2) [not null]
+  forma_pagamento varchar(30)
+  observacoes text
+}
+
+Ref: compra.fornecedor_id > fornecedor.id
+
+Table item_compra {
+  id integer [pk, increment]
+  compra_id integer [not null]
+  produto_id integer
+  servico_id integer
+  quantidade decimal(12,3) [not null]
+  preco_unitario decimal(12,2) [not null]
+  desconto decimal(12,2) [default: 0]
+  subtotal decimal(12,2) [not null]
+}
+
+Ref: item_compra.compra_id > compra.id
+Ref: item_compra.produto_id > produto.id
+Ref: item_compra.servico_id > servico.id
+
+Table venda {
+  id integer [pk, increment]
+  cliente_id integer
+  data_venda timestamp [not null]
+  status varchar(20) [not null]
+  desconto decimal(12,2) [default: 0]
+  total decimal(12,2) [not null]
+  forma_pagamento varchar(30)
+  observacoes text
+}
+
+Ref: venda.cliente_id > cliente.id
+
+Table item_venda {
+  id integer [pk, increment]
+  venda_id integer [not null]
+  produto_id integer
+  servico_id integer
+  quantidade decimal(12,3) [not null]
+  preco_unitario decimal(12,2) [not null]
+  desconto decimal(12,2) [default: 0]
+  subtotal decimal(12,2) [not null]
+}
+
+Ref: item_venda.venda_id > venda.id
+Ref: item_venda.produto_id > produto.id
+Ref: item_venda.servico_id > servico.id
+
+Table movimento_financeiro {
+  id integer [pk, increment]
+  tipo varchar(20) [not null]
+  descricao varchar(200) [not null]
+  valor decimal(12,2) [not null]
+  data_lancamento timestamp [not null]
+  data_vencimento date
+  data_pagamento date
+  status varchar(20) [not null]
+  forma_pagamento varchar(30)
+  origem varchar(30)
+  origem_id integer
+  observacoes text
+}
+
+Table endereco_fornecedor {
+  id integer [pk, increment]
+  fornecedor_id integer [not null]
+  tipo varchar(30)
+  cep varchar(8) [not null]
+  logradouro varchar(150) [not null]
+  numero varchar(20) [not null]
+  complemento varchar(100)
+  bairro varchar(100) [not null]
+  cidade varchar(100) [not null]
+  estado varchar(2) [not null]
+}
+
+Ref: endereco_fornecedor.fornecedor_id > fornecedor.id
