@@ -1,6 +1,7 @@
 package com.codebusters.erp.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -18,5 +19,9 @@ public class ClienteService {
 
 	public List<Cliente> listarTodos() {
 		return clienteRepository.findAll();
+	}
+
+	public Optional<Cliente> buscarPorId(Long id) {
+		return clienteRepository.findById(id);
 	}
 }
