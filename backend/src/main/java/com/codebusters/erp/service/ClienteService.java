@@ -1,5 +1,6 @@
 package com.codebusters.erp.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,5 +24,10 @@ public class ClienteService {
 
 	public Optional<Cliente> buscarPorId(Long id) {
 		return clienteRepository.findById(id);
+	}
+
+	public Cliente salvar(Cliente cliente) {
+		cliente.setDataCriacao(LocalDateTime.now());
+		return clienteRepository.save(cliente);
 	}
 }
