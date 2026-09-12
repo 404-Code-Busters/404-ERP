@@ -49,4 +49,13 @@ public class ClienteService {
 
 		return Optional.of(clienteRepository.save(clienteAtualizado));
 	}
+
+	public boolean excluir(Long id) {
+		if (!clienteRepository.existsById(id)) {
+			return false;
+		}
+
+		clienteRepository.deleteById(id);
+		return true;
+	}
 }
