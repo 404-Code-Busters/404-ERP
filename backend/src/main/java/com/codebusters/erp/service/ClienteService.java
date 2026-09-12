@@ -30,4 +30,23 @@ public class ClienteService {
 		cliente.setDataCriacao(LocalDateTime.now());
 		return clienteRepository.save(cliente);
 	}
+
+	public Optional<Cliente> atualizar(Long id, Cliente cliente) {
+		Optional<Cliente> clienteExistente = clienteRepository.findById(id);
+		if (clienteExistente.isEmpty()) {
+			return Optional.empty();
+		}
+
+		Cliente clienteAtualizado = clienteExistente.get();
+		clienteAtualizado.setNome(cliente.getNome());
+		clienteAtualizado.setCpf(cliente.getCpf());
+		clienteAtualizado.setEmail(cliente.getEmail());
+		clienteAtualizado.setTelefone(cliente.getTelefone());
+		clienteAtualizado.setDataNascimento(cliente.getDataNascimento());
+		clienteAtualizado.setLimiteCredito(cliente.getLimiteCredito());
+		clienteAtualizado.setObservacoes(cliente.getObservacoes());
+		clienteAtualizado.setStatus(cliente.getStatus());
+
+		return Optional.of(clienteRepository.save(clienteAtualizado));
+	}
 }
