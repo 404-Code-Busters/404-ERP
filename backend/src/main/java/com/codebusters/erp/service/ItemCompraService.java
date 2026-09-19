@@ -1,20 +1,28 @@
 package com.codebusters.erp.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.codebusters.erp.entity.Compra;
 import com.codebusters.erp.entity.ItemCompra;
+import com.codebusters.erp.repository.CompraRepository;
 import com.codebusters.erp.repository.ItemCompraRepository;
 
 @Service
 public class ItemCompraService {
 
     private final ItemCompraRepository itemCompraRepository;
+    private final CompraRepository compraRepository;
 
-    public ItemCompraService(ItemCompraRepository itemCompraRepository) {
+    public ItemCompraService(
+            ItemCompraRepository itemCompraRepository,
+            CompraRepository compraRepository) {
+
         this.itemCompraRepository = itemCompraRepository;
+        this.compraRepository = compraRepository;
     }
 
     public List<ItemCompra> listarTodos() {
@@ -26,6 +34,28 @@ public class ItemCompraService {
     }
 
     public ItemCompra salvar(ItemCompra itemCompra) {
-        return itemCompraRepository.save(itemCompra);
+
+        ItemCompra itemSalvo = itemCompraRepository.save(itemCompra);
+
+        Long compraId = itemSalvo.getCompra().getId();
+
+        Compra compra = compraRepository.findById(compraId)
+                .orElseThrow(() -> new RuntimeException("Compra não encontrada."));
+
+        List<ItemCompra> itens = itemCompraRepository.findByCompraId(compraId);
+
+        BigDecimal subtotalItens = itens.stream()
+                .map(ItemCompra::getSubtotal)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        BigDecimal desconto = compra.getDesconto() != null
+                ? compra.getDesconto()
+                : BigDecimal.ZERO;
+
+        compra.setTotal(subtotalItens.subtract(desconto));
+
+        compraRepository.save(compra);
+
+        return itemSalvo;
     }
 }
