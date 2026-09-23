@@ -58,4 +58,38 @@ public class ItemCompraService {
 
         return itemSalvo;
     }
+    
+    public boolean excluir(Long id) {
+
+        Optional<ItemCompra> itemExistente = itemCompraRepository.findById(id);
+
+        if (itemExistente.isEmpty()) {
+            return false;
+        }
+
+        ItemCompra item = itemExistente.get();
+
+        Long compraId = item.getCompra().getId();
+
+        itemCompraRepository.deleteById(id);
+
+        List<ItemCompra> itens = itemCompraRepository.findByCompraId(compraId);
+
+        BigDecimal subtotalItens = itens.stream()
+                .map(ItemCompra::getSubtotal)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        Compra compra = compraRepository.findById(compraId)
+                .orElseThrow(() -> new RuntimeException("Compra não encontrada."));
+
+        BigDecimal desconto = compra.getDesconto() != null
+                ? compra.getDesconto()
+                : BigDecimal.ZERO;
+
+        compra.setTotal(subtotalItens.subtract(desconto));
+
+        compraRepository.save(compra);
+
+        return true;
+    }
 }
