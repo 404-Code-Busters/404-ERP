@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.codebusters.erp.entity.Compra;
 import com.codebusters.erp.entity.ItemCompra;
+import com.codebusters.erp.exception.RegraNegocioException;
 import com.codebusters.erp.repository.CompraRepository;
 import com.codebusters.erp.repository.ItemCompraRepository;
 
@@ -67,5 +68,23 @@ public class CompraService {
         existente.setTotal(subtotalItens.subtract(desconto));
 
         return Optional.of(compraRepository.save(existente));
+    }
+
+    public boolean excluir(Long id) {
+
+        Optional<Compra> compraExistente = compraRepository.findById(id);
+
+        if (compraExistente.isEmpty()) {
+            return false;
+        }
+
+        List<ItemCompra> itens = itemCompraRepository.findByCompraId(id);
+
+        if (!itens.isEmpty()) {    
+        throw new RegraNegocioException("Não é possível excluir uma compra que possui itens.");
+        }
+        compraRepository.deleteById(id);
+
+        return true;
     }
 }
