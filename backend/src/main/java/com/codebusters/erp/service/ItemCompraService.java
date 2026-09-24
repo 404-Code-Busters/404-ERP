@@ -58,7 +58,57 @@ public class ItemCompraService {
 
         return itemSalvo;
     }
-    
+
+    public Optional<ItemCompra> atualizar(Long id, ItemCompra itemCompra) {
+
+        Optional<ItemCompra> itemExistente = itemCompraRepository.findById(id);
+
+        if (itemExistente.isEmpty()) {
+            return Optional.empty();
+        }
+
+        ItemCompra existente = itemExistente.get();
+
+        existente.setQuantidade(itemCompra.getQuantidade());
+        existente.setPrecoUnitario(itemCompra.getPrecoUnitario());
+        existente.setDesconto(itemCompra.getDesconto());
+
+        BigDecimal quantidade = existente.getQuantidade();
+        BigDecimal precoUnitario = existente.getPrecoUnitario();
+        BigDecimal desconto = existente.getDesconto() != null
+                ? existente.getDesconto()
+                : BigDecimal.ZERO;
+
+        BigDecimal subtotal = quantidade
+                .multiply(precoUnitario)
+                .subtract(desconto);
+
+        existente.setSubtotal(subtotal);
+
+        ItemCompra itemSalvo = itemCompraRepository.save(existente);
+
+        Long compraId = existente.getCompra().getId();
+
+        List<ItemCompra> itens = itemCompraRepository.findByCompraId(compraId);
+
+        BigDecimal subtotalItens = itens.stream()
+                .map(ItemCompra::getSubtotal)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        Compra compra = compraRepository.findById(compraId)
+                .orElseThrow(() -> new RuntimeException("Compra não encontrada."));
+
+        BigDecimal descontoCompra = compra.getDesconto() != null
+                ? compra.getDesconto()
+                : BigDecimal.ZERO;
+
+        compra.setTotal(subtotalItens.subtract(descontoCompra));
+
+        compraRepository.save(compra);
+
+        return Optional.of(itemSalvo);
+    }
+
     public boolean excluir(Long id) {
 
         Optional<ItemCompra> itemExistente = itemCompraRepository.findById(id);
