@@ -22,7 +22,9 @@ public class SecurityConfig {
                     "/estoques/**",
                     "/movimentacoes-estoque/**",
                     "/compras/**",
-                    "/itens-compra/**"
+                    "/itens-compra/**",
+                    "/vendas/**",
+                    "/itens-venda/**"
                 ).permitAll()
                 .anyRequest().authenticated()
             );
