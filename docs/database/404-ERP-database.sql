@@ -196,7 +196,7 @@ ALTER TABLE "endereco" ADD FOREIGN KEY ("cliente_id") REFERENCES "cliente" ("id"
 
 ALTER TABLE "produto" ADD FOREIGN KEY ("categoria_id") REFERENCES "categoria" ("id") DEFERRABLE INITIALLY IMMEDIATE;
 
-ALTER TABLE "produto" ADD FOREIGN KEY ("id") REFERENCES "estoque" ("produto_id") DEFERRABLE INITIALLY IMMEDIATE;
+ALTER TABLE "estoque" ADD FOREIGN KEY ("produto_id") REFERENCES "produto" ("id") DEFERRABLE INITIALLY IMMEDIATE;
 
 ALTER TABLE "movimentacao_estoque" ADD FOREIGN KEY ("produto_id") REFERENCES "produto" ("id") DEFERRABLE INITIALLY IMMEDIATE;
 
