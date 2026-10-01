@@ -57,6 +57,51 @@ O 404 ERP adota uma arquitetura em camadas seguindo o modelo cliente-servidor, c
 - Componentes reutilizáveis
 - Comunicação com backend via HTTP
 
+### Planejamento aprovado para o frontend
+
+O frontend será uma SPA em **Vue 3**, **TypeScript** e **Vite**, consumindo a API REST do backend. A navegação será feita com Router e a organização será por funcionalidades/domínios. Uma camada compartilhada concentrará comunicação HTTP, componentes reutilizáveis, composables e utilitários.
+
+Estrutura planejada:
+
+```text
+frontend/
+    src/
+        app/
+            App.vue
+            main.ts
+            router/
+        layouts/
+        shared/
+            api/
+            components/
+            composables/
+            utils/
+        features/
+            categorias/
+            clientes/
+            fornecedores/
+            produtos/
+            estoque/
+            movimentacoes-estoque/
+            compras/
+            vendas/
+```
+
+O shell previsto usa sidebar persistente, header, breadcrumb e área principal, com layout responsivo, foco em desktop/notebook e adaptação para tablet/mobile. A Fase 1 contempla Categorias e Produtos dentro desse shell.
+
+#### Design base aprovado
+
+- Background: `#F8FAFC`
+- Surface: `#FFFFFF`
+- Border: `#E5E7EB`
+- Primary: `#256EDC`
+- Text: `#0F172A`
+- Secondary text: `#475569`
+- Muted text: `#64748B`
+- Tipografia: Inter
+
+Dashboard, autenticação e financeiro não fazem parte da Fase 1. O frontend não deve simular funcionalidades que o backend ainda não oferece.
+
 ### 2. API REST
 
 **Responsabilidades:**

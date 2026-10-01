@@ -303,6 +303,18 @@ Gerenciar os fornecedores utilizados pela empresa para aquisição de produtos e
 
 ---
 
+## Categorias
+
+### Funcionalidades disponíveis no backend
+
+* Listar categorias.
+* Consultar categoria por ID.
+* Criar categoria.
+
+Não há edição ou exclusão implementadas para categorias. Produtos dependem de uma categoria existente.
+
+---
+
 ## 5. Produtos
 
 ### Objetivo
@@ -355,6 +367,10 @@ Gerenciar os produtos comercializados pela empresa.
 * Estoque.
 * Vendas.
 
+### Situação atual no backend
+
+O backend oferece listagem, consulta por ID, cadastro, edição e exclusão de produtos. O cadastro de produto não cria automaticamente um registro de estoque; o estoque atualmente é uma operação separada. A associação com fornecedores está modelada no banco, mas não possui endpoint próprio.
+
 ---
 
 ## 6. Estoque
@@ -373,6 +389,10 @@ Controlar a quantidade e a movimentação dos produtos armazenados pela empresa.
 * Identificar produtos com estoque baixo.
 * Controlar estoque mínimo.
 * Associar movimentações às compras e vendas.
+
+### Situação atual no backend
+
+O backend oferece consulta e cadastro de registros de estoque, além de consulta e cadastro de movimentações. O cadastro de Produto não cria automaticamente um registro de Estoque; o Estoque atualmente é uma operação separada. Movimentações atualizam um registro de estoque existente, mas recebimento de compras e vendas ainda não estão integrados automaticamente ao estoque.
 
 ### Dados principais
 
