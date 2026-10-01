@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.codebusters.erp.entity.Produto;
-import com.codebusters.erp.service.ProdutoService;
+import com.codebusters.erp.domain.produto.Produto;
+import com.codebusters.erp.domain.produto.ProdutoService;
 
 @RestController
 @RequestMapping("/produtos")

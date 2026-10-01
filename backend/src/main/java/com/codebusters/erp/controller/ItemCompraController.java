@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.codebusters.erp.entity.ItemCompra;
-import com.codebusters.erp.service.ItemCompraService;
+import com.codebusters.erp.domain.item_compra.ItemCompra;
+import com.codebusters.erp.domain.item_compra.ItemCompraService;
 
 @RestController
 @RequestMapping("/itens-compra")

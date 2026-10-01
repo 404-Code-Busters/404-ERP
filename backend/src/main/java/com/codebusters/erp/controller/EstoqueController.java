@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.codebusters.erp.entity.Estoque;
-import com.codebusters.erp.service.EstoqueService;
+import com.codebusters.erp.domain.estoque.Estoque;
+import com.codebusters.erp.domain.estoque.EstoqueService;
 
 @RestController
 @RequestMapping("/estoques")

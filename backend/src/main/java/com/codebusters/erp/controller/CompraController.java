@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.codebusters.erp.entity.Compra;
-import com.codebusters.erp.exception.RegraNegocioException;
-import com.codebusters.erp.service.CompraService;
+import com.codebusters.erp.domain.compra.Compra;
+import com.codebusters.erp.infra.exception.RegraNegocioException;
+import com.codebusters.erp.domain.compra.CompraService;
 
 @RestController
 @RequestMapping("/compras")

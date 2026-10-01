@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.codebusters.erp.dto.ClienteRequest;
-import com.codebusters.erp.entity.Cliente;
-import com.codebusters.erp.service.ClienteService;
+import com.codebusters.erp.domain.cliente.Cliente;
+import com.codebusters.erp.domain.cliente.ClienteService;
 
 @RestController
 @RequestMapping("/clientes")

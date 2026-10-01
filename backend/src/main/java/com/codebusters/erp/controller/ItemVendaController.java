@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.codebusters.erp.entity.ItemVenda;
-import com.codebusters.erp.service.ItemVendaService;
+import com.codebusters.erp.domain.item_venda.ItemVenda;
+import com.codebusters.erp.domain.item_venda.ItemVendaService;
 
 @RestController
 @RequestMapping("/itens-venda")

@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.codebusters.erp.entity.Categoria;
-import com.codebusters.erp.service.CategoriaService;
+import com.codebusters.erp.domain.categoria.Categoria;
+import com.codebusters.erp.domain.categoria.CategoriaService;
 
 @RestController
 @RequestMapping("/categorias")
