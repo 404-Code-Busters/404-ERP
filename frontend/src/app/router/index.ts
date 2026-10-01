@@ -2,6 +2,9 @@ import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 import CategoriasPage from '../../features/categorias/pages/CategoriasPage.vue'
 import NovaCategoriaPage from '../../features/categorias/pages/NovaCategoriaPage.vue'
 import DetalheCategoriaPage from '../../features/categorias/pages/DetalheCategoriaPage.vue'
+import ProdutosPage from '../../features/produtos/pages/ProdutosPage.vue'
+import ProdutoFormPage from '../../features/produtos/pages/ProdutoFormPage.vue'
+import DetalheProdutoPage from '../../features/produtos/pages/DetalheProdutoPage.vue'
 import RoutePlaceholder from '../../shared/components/RoutePlaceholder.vue'
 
 interface BreadcrumbItem {
@@ -102,25 +105,59 @@ const routes: RouteRecordRaw[] = [
     { label: 'Fornecedores', to: '/fornecedores' },
     { label: 'Detalhe' },
   ], 'fornecedores'),
-  placeholderRoute('/produtos', 'produtos-lista', 'Produtos', [
-    { label: 'Cadastros' },
-    { label: 'Produtos' },
-  ], 'produtos'),
-  placeholderRoute('/produtos/novo', 'produto-novo', 'Novo produto', [
-    { label: 'Cadastros' },
-    { label: 'Produtos', to: '/produtos' },
-    { label: 'Novo produto' },
-  ], 'produtos'),
-  placeholderRoute('/produtos/:id/editar', 'produto-editar', 'Editar produto', [
-    { label: 'Cadastros' },
-    { label: 'Produtos', to: '/produtos' },
-    { label: 'Editar' },
-  ], 'produtos'),
-  placeholderRoute('/produtos/:id', 'produto-detalhe', 'Detalhe do produto', [
-    { label: 'Cadastros' },
-    { label: 'Produtos', to: '/produtos' },
-    { label: 'Detalhe' },
-  ], 'produtos'),
+  {
+    path: '/produtos',
+    name: 'produtos-lista',
+    component: ProdutosPage,
+    meta: {
+      title: 'Produtos',
+      breadcrumbs: [{ label: 'Cadastros' }, { label: 'Produtos' }],
+      navKey: 'produtos',
+    },
+  },
+  {
+    path: '/produtos/novo',
+    name: 'produto-novo',
+    component: ProdutoFormPage,
+    meta: {
+      title: 'Novo produto',
+      breadcrumbs: [
+        { label: 'Cadastros' },
+        { label: 'Produtos', to: '/produtos' },
+        { label: 'Novo produto' },
+      ],
+      navKey: 'produtos',
+    },
+  },
+  {
+    path: '/produtos/:id/editar',
+    name: 'produto-editar',
+    component: ProdutoFormPage,
+    meta: {
+      title: 'Editar produto',
+      breadcrumbs: [
+        { label: 'Cadastros' },
+        { label: 'Produtos', to: '/produtos' },
+        { label: 'Editar' },
+      ],
+      navKey: 'produtos',
+      editing: true,
+    },
+  },
+  {
+    path: '/produtos/:id',
+    name: 'produto-detalhe',
+    component: DetalheProdutoPage,
+    meta: {
+      title: 'Detalhe do produto',
+      breadcrumbs: [
+        { label: 'Cadastros' },
+        { label: 'Produtos', to: '/produtos' },
+        { label: 'Detalhe' },
+      ],
+      navKey: 'produtos',
+    },
+  },
   placeholderRoute('/estoque', 'estoque-lista', 'Estoque', [
     { label: 'Operações' },
     { label: 'Estoque' },
