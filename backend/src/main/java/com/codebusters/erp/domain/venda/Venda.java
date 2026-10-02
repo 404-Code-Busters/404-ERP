@@ -15,7 +15,13 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.*;
 
+@EqualsAndHashCode(of = "id")
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "venda")
 public class Venda {
@@ -50,71 +56,4 @@ public class Venda {
 
 	@Column(columnDefinition = "TEXT")
 	private String observacoes;
-
-	public Venda() {
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
-
-	public LocalDateTime getDataVenda() {
-		return dataVenda;
-	}
-
-	public void setDataVenda(LocalDateTime dataVenda) {
-		this.dataVenda = dataVenda;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public BigDecimal getDesconto() {
-		return desconto;
-	}
-
-	public void setDesconto(BigDecimal desconto) {
-		this.desconto = desconto;
-	}
-
-	public BigDecimal getTotal() {
-		return total;
-	}
-
-	public void setTotal(BigDecimal total) {
-		this.total = total;
-	}
-
-	public String getFormaPagamento() {
-		return formaPagamento;
-	}
-
-	public void setFormaPagamento(String formaPagamento) {
-		this.formaPagamento = formaPagamento;
-	}
-
-	public String getObservacoes() {
-		return observacoes;
-	}
-
-	public void setObservacoes(String observacoes) {
-		this.observacoes = observacoes;
-	}
 }

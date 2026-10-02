@@ -15,7 +15,13 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.*;
 
+@EqualsAndHashCode(of = "id")
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(
 	name = "produto_fornecedor",
@@ -49,55 +55,4 @@ public class ProdutoFornecedor {
 	@NotNull
 	@Column(nullable = false)
 	private Boolean principal = false;
-
-	public ProdutoFornecedor() {
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Produto getProduto() {
-		return produto;
-	}
-
-	public void setProduto(Produto produto) {
-		this.produto = produto;
-	}
-
-	public Fornecedor getFornecedor() {
-		return fornecedor;
-	}
-
-	public void setFornecedor(Fornecedor fornecedor) {
-		this.fornecedor = fornecedor;
-	}
-
-	public String getCodigoFornecedor() {
-		return codigoFornecedor;
-	}
-
-	public void setCodigoFornecedor(String codigoFornecedor) {
-		this.codigoFornecedor = codigoFornecedor;
-	}
-
-	public BigDecimal getPrecoCusto() {
-		return precoCusto;
-	}
-
-	public void setPrecoCusto(BigDecimal precoCusto) {
-		this.precoCusto = precoCusto;
-	}
-
-	public Boolean getPrincipal() {
-		return principal;
-	}
-
-	public void setPrincipal(Boolean principal) {
-		this.principal = principal;
-	}
 }

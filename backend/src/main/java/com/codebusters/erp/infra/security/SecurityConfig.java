@@ -1,4 +1,4 @@
-package com.codebusters.erp.infra.config;
+package com.codebusters.erp.infra.security;
 
 import java.util.List;
 
@@ -16,24 +16,25 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable())
-            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers(
-                    "/error",
-                    "/clientes/**",
-                    "/fornecedores/**",
-                    "/categorias/**",
-                    "/produtos/**",
-                    "/estoques/**",
-                    "/movimentacoes-estoque/**",
-                    "/compras/**",
-                    "/itens-compra/**",
-                    "/vendas/**",
-                    "/itens-venda/**"
-                ).permitAll()
-                .anyRequest().authenticated()
-            );
+                .csrf(csrf -> csrf.disable())
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(
+                                "/error",
+                                "/clientes/**",
+                                "/fornecedores/**",
+                                "/categorias/**",
+                                "/produtos/**",
+                                "/estoques/**",
+                                "/movimentacoes-estoque/**",
+                                "/compras/**",
+                                "/itens-compra/**",
+                                "/vendas/**",
+                                "/itens-venda/**"
+                        ).permitAll()
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
+                        .anyRequest().authenticated()
+                );
 
         return http.build();
     }
@@ -42,8 +43,8 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of(
-            "http://127.0.0.1:5173",
-            "http://localhost:5173"
+                "http://127.0.0.1:5173",
+                "http://localhost:5173"
         ));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("Accept", "Authorization", "Content-Type"));

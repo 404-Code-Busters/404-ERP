@@ -12,7 +12,13 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.*;
 
+@EqualsAndHashCode(of = "id")
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "servico")
 public class Servico {
@@ -49,70 +55,4 @@ public class Servico {
 	@Column(name = "data_criacao", nullable = false)
 	private LocalDateTime dataCriacao;
 
-	public Servico() {
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getCodigoInterno() {
-		return codigoInterno;
-	}
-
-	public void setCodigoInterno(String codigoInterno) {
-		this.codigoInterno = codigoInterno;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
-	public BigDecimal getPrecoCusto() {
-		return precoCusto;
-	}
-
-	public void setPrecoCusto(BigDecimal precoCusto) {
-		this.precoCusto = precoCusto;
-	}
-
-	public BigDecimal getPrecoVenda() {
-		return precoVenda;
-	}
-
-	public void setPrecoVenda(BigDecimal precoVenda) {
-		this.precoVenda = precoVenda;
-	}
-
-	public Boolean getStatus() {
-		return status;
-	}
-
-	public void setStatus(Boolean status) {
-		this.status = status;
-	}
-
-	public LocalDateTime getDataCriacao() {
-		return dataCriacao;
-	}
-
-	public void setDataCriacao(LocalDateTime dataCriacao) {
-		this.dataCriacao = dataCriacao;
-	}
 }

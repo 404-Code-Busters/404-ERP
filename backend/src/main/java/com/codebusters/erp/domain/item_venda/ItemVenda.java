@@ -14,7 +14,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
+import lombok.*;
 
+@EqualsAndHashCode(of = "id")
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "item_venda")
 public class ItemVenda {
@@ -50,71 +56,4 @@ public class ItemVenda {
 	@NotNull
 	@Column(nullable = false, precision = 12, scale = 2)
 	private BigDecimal subtotal;
-
-	public ItemVenda() {
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Venda getVenda() {
-		return venda;
-	}
-
-	public void setVenda(Venda venda) {
-		this.venda = venda;
-	}
-
-	public Produto getProduto() {
-		return produto;
-	}
-
-	public void setProduto(Produto produto) {
-		this.produto = produto;
-	}
-
-	public Servico getServico() {
-		return servico;
-	}
-
-	public void setServico(Servico servico) {
-		this.servico = servico;
-	}
-
-	public BigDecimal getQuantidade() {
-		return quantidade;
-	}
-
-	public void setQuantidade(BigDecimal quantidade) {
-		this.quantidade = quantidade;
-	}
-
-	public BigDecimal getPrecoUnitario() {
-		return precoUnitario;
-	}
-
-	public void setPrecoUnitario(BigDecimal precoUnitario) {
-		this.precoUnitario = precoUnitario;
-	}
-
-	public BigDecimal getDesconto() {
-		return desconto;
-	}
-
-	public void setDesconto(BigDecimal desconto) {
-		this.desconto = desconto;
-	}
-
-	public BigDecimal getSubtotal() {
-		return subtotal;
-	}
-
-	public void setSubtotal(BigDecimal subtotal) {
-		this.subtotal = subtotal;
-	}
 }

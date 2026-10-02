@@ -13,7 +13,13 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
+import lombok.*;
 
+@EqualsAndHashCode(of = "id")
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "estoque")
 public class Estoque {
@@ -34,39 +40,4 @@ public class Estoque {
 	@NotNull
 	@Column(name = "atualizado_em", nullable = false)
 	private LocalDateTime atualizadoEm;
-
-	public Estoque() {
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Produto getProduto() {
-		return produto;
-	}
-
-	public void setProduto(Produto produto) {
-		this.produto = produto;
-	}
-
-	public BigDecimal getQuantidade() {
-		return quantidade;
-	}
-
-	public void setQuantidade(BigDecimal quantidade) {
-		this.quantidade = quantidade;
-	}
-
-	public LocalDateTime getAtualizadoEm() {
-		return atualizadoEm;
-	}
-
-	public void setAtualizadoEm(LocalDateTime atualizadoEm) {
-		this.atualizadoEm = atualizadoEm;
-	}
 }

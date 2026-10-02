@@ -4,6 +4,7 @@ package com.codebusters.erp.domain.venda;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.codebusters.erp.domain.item_venda.ItemVendaRepository;
@@ -11,15 +12,13 @@ import com.codebusters.erp.domain.item_venda.ItemVendaRepository;
 @Service
 public class VendaService {
 
-    private final VendaRepository vendaRepository;
-    private final ItemVendaRepository itemVendaRepository;
+    @Autowired
+    private VendaRepository vendaRepository;
 
-    public VendaService(
-            VendaRepository vendaRepository,
-            ItemVendaRepository itemVendaRepository) {
-        this.vendaRepository = vendaRepository;
-        this.itemVendaRepository = itemVendaRepository;
-    }
+    @Autowired
+    private ItemVendaRepository itemVendaRepository;
+
+
 
     public List<Venda> listarTodos() {
         return vendaRepository.findAll();

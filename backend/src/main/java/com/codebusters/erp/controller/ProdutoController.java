@@ -2,6 +2,11 @@ package com.codebusters.erp.controller;
 
 import java.util.List;
 
+import com.codebusters.erp.domain.produto.dto.AtualizarDadosProduto;
+import com.codebusters.erp.domain.produto.dto.DetalhesDoProduto;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,42 +24,32 @@ import com.codebusters.erp.domain.produto.ProdutoService;
 @RequestMapping("/produtos")
 public class ProdutoController {
 
-	private final ProdutoService produtoService;
-
-	public ProdutoController(ProdutoService produtoService) {
-		this.produtoService = produtoService;
-	}
+	@Autowired
+	private ProdutoService produtoService;
 
 	@GetMapping
-	public List<Produto> listarTodos() {
-		return produtoService.listarTodos();
+	public ResponseEntity<List<DetalhesDoProduto>> listarTodos() {
+		return ResponseEntity.ok(produtoService.listarTodos());
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Produto> buscarPorId(@PathVariable Long id) {
-		return produtoService.buscarPorId(id)
-				.map(ResponseEntity::ok)
-				.orElseGet(() -> ResponseEntity.notFound().build());
+	public ResponseEntity<DetalhesDoProduto> buscarPorId(@PathVariable Long id) {
+		return ResponseEntity.ok(produtoService.buscarPorId(id));
 	}
 
 	@PostMapping
-	public Produto criar(@RequestBody Produto produto) {
-		return produtoService.salvar(produto);
+	public ResponseEntity<DetalhesDoProduto> criar(@RequestBody Produto produto) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(produtoService.salvar(produto));
 	}
     
     @PutMapping("/{id}")
-    public ResponseEntity<Produto> atualizar(@PathVariable Long id, @RequestBody Produto produto) {
-        return produtoService.atualizar(id, produto)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<DetalhesDoProduto> atualizar(@PathVariable Long id, @RequestBody @Valid AtualizarDadosProduto dados) {
+        return ResponseEntity.ok(produtoService.atualizar(id, dados));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluir(@PathVariable Long id) {
-        if (!produtoService.excluir(id)) {
-            return ResponseEntity.notFound().build();
-        }
-
+		produtoService.excluir(id);
         return ResponseEntity.noContent().build();
     }
 }
