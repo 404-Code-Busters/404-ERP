@@ -26,14 +26,9 @@ public class CategoriaService {
 	}
 
 	@Transactional
-	public DetalhesCategoria salvar(CategoriaDados dados) {
-		var categoria = new Categoria(dados);
+	public DetalhesCategoria salvar(Categoria categoria) {
 		categoriaRepository.save(categoria);
 		return new DetalhesCategoria(categoria);
 	}
 
-	@Transactional
-	public DetalhesCategoria atualizarCategoria(CategoriaDados dados) {
-
-	}
 }

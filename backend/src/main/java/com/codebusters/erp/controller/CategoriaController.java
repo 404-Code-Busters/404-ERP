@@ -2,7 +2,11 @@ package com.codebusters.erp.controller;
 
 import java.util.List;
 
+import com.codebusters.erp.domain.categoria.dto.CategoriaDados;
+import com.codebusters.erp.domain.categoria.dto.DetalhesCategoria;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,19 +27,18 @@ public class CategoriaController {
 
 
 	@GetMapping
-	public List<Categoria> listarTodos() {
+	public List<DetalhesCategoria> listarTodos() {
 		return categoriaService.listarTodos();
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Categoria> buscarPorId(@PathVariable Long id) {
-		return categoriaService.buscarPorId(id)
-				.map(ResponseEntity::ok)
-				.orElseGet(() -> ResponseEntity.notFound().build());
+	public ResponseEntity<DetalhesCategoria> buscarPorId(@PathVariable Long id) {
+		return ResponseEntity.ok(categoriaService.buscarPorId(id));
 	}
 
 	@PostMapping
-	public Categoria criar(@RequestBody Categoria categoria) {
-		return categoriaService.salvar(categoria);
+	public ResponseEntity<DetalhesCategoria> criar(@RequestBody Categoria categoria) {
+		return ResponseEntity.status(HttpStatus.CREATED)
+				.body(categoriaService.salvar(categoria));
 	}
 }
