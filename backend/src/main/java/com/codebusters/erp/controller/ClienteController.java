@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.codebusters.erp.dto.ClienteRequest;
+import com.codebusters.erp.domain.cliente.dto.ClienteRequest;
 import com.codebusters.erp.domain.cliente.Cliente;
 import com.codebusters.erp.domain.cliente.ClienteService;
 

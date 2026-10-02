@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.codebusters.erp.dto.FornecedorRequest;
+import com.codebusters.erp.domain.fornecedor.dto.FornecedorRequest;
 import com.codebusters.erp.domain.fornecedor.Fornecedor;
 import com.codebusters.erp.domain.fornecedor.FornecedorService;
 

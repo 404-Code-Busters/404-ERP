@@ -1,4 +1,4 @@
-package com.codebusters.erp.dto;
+package com.codebusters.erp.domain.cliente.dto;
 
 
 import lombok.Getter;
